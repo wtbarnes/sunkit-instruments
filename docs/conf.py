@@ -10,15 +10,39 @@ from packaging.version import Version
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 if on_rtd:
     os.environ["SUNPY_CONFIGDIR"] = "/home/docs/"
+<<<<<<<
     os.environ["HOME"] = "/home/docs/"
     os.environ["LANG"] = "C"
     os.environ["LC_ALL"] = "C"
     os.environ["PARFIVE_HIDE_PROGRESS"] = "True"
 
 # -- Project information -----------------------------------------------------
+=======
+
+import datetime
+
+from packaging.version import Version
+
+# -- Project information -----------------------------------------------------
 
 # The full version, including alpha/beta/rc tags
+from sunkit_instruments import __version__
+>>>>>>>
+
+<<<<<<<
+# The full version, including alpha/beta/rc tags
 from sunkit_instruments import __version__  # NOQA
+=======
+_version = Version(__version__)
+version = release = str(_version)
+# Avoid "post" appearing in version string in rendered docs
+if _version.is_postrelease:
+    version = release = _version.base_version
+# Avoid long githashes in rendered Sphinx docs
+elif _version.is_devrelease:
+    version = release = f'{_version.base_version}.dev{_version.dev}'
+is_development = _version.is_devrelease
+>>>>>>>
 
 project = "sunkit-instruments"
 author = "The SunPy Community"
