@@ -10,15 +10,40 @@ from packaging.version import Version
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 if on_rtd:
     os.environ["SUNPY_CONFIGDIR"] = "/home/docs/"
+<<<<<<<
     os.environ["HOME"] = "/home/docs/"
     os.environ["LANG"] = "C"
     os.environ["LC_ALL"] = "C"
     os.environ["PARFIVE_HIDE_PROGRESS"] = "True"
 
 # -- Project information -----------------------------------------------------
+=======
+
+import datetime
+
+from packaging.version import Version
+
+# -- Project information -----------------------------------------------------
 
 # The full version, including alpha/beta/rc tags
+from sunkit_instruments import __version__
+>>>>>>>
+
+<<<<<<<
+# The full version, including alpha/beta/rc tags
 from sunkit_instruments import __version__  # NOQA
+=======
+_version = Version(__version__)
+version = release = str(_version)
+# Avoid "post" appearing in version string in rendered docs
+if _version.is_postrelease:
+    version = release = _version.base_version
+# Avoid long githashes in rendered Sphinx docs
+elif _version.is_devrelease:
+    version = release = f"{_version.base_version}.dev{_version.dev}"
+is_development = _version.is_devrelease
+is_release = not(_version.is_prerelease or _version.is_devrelease)
+>>>>>>>
 
 project = "sunkit-instruments"
 author = "The SunPy Community"
@@ -62,17 +87,45 @@ html_extra_path = ["robots.txt"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # The suffix(es) of source filenames.
+<<<<<<<
 # You can specify multiple suffix as a list of string:
 source_suffix = ".rst"
 
 # The master toctree document.
 master_doc = "index"
+=======
+master_doc = "index"
+
+# Treat everything in single ` as a Python reference.
+default_role = "py:obj"
+>>>>>>>
 
 # Treat everything in single ` as a Python reference.
 default_role = 'py:obj'
 
+<<<<<<<
 # -- Options for intersphinx extension -----------------------------------------
 intersphinx_mapping = {
+=======
+# a list of builtin themes.
+html_theme = "alabaster"
+
+# Render inheritance diagrams in SVG
+graphviz_output_format = "svg"
+
+graphviz_dot_args = [
+    "-Nfontsize=10",
+    "-Nfontname=Helvetica Neue, Helvetica, Arial, sans-serif",
+    "-Efontsize=10",
+    "-Efontname=Helvetica Neue, Helvetica, Arial, sans-serif",
+    "-Gfontsize=10",
+    "-Gfontname=Helvetica Neue, Helvetica, Arial, sans-serif",
+]
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+>>>>>>>
     "python": (
         "https://docs.python.org/3/",
         (None, "http://www.astropy.org/astropy-data/intersphinx/python3.inv"),
